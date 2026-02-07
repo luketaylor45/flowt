@@ -3,7 +3,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const secretKey = "secret-key-change-me-in-production"; // In a real app, use existing process.env.SESSION_SECRET
+const secretKey = process.env.SESSION_SECRET || "default-secret-key-change-me";
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
@@ -20,7 +20,7 @@ export async function decrypt(input: string): Promise<any> {
             algorithms: ["HS256"],
         });
         return payload;
-    } catch (e) {
+    } catch {
         return null;
     }
 }
@@ -40,7 +40,7 @@ export async function hasPermission(userId: string, permission: string): Promise
     try {
         const permissions = JSON.parse(user.group.permissions);
         return Array.isArray(permissions) && permissions.includes(permission);
-    } catch (e) {
+    } catch {
         return false;
     }
 }

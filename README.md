@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌊 Flowt
 
-## Getting Started
+**Flowt** is a modern, sleek, and self-hosted project management application designed for teams who value data ownership and a premium user experience. Built with performance and aesthetics in mind, Flowt provides a comprehensive suite of tools to manage your projects from conception to completion.
+---
 
-First, run the development server:
+## ✨ Features
 
+### 📋 Project & Task Management
+- **Kanban Boards**: Visualize your workflow with dynamic, drag-and-drop boards.
+- **Task Hierarchy**: Break down complex tasks into manageable subtasks.
+- **Rich Task Details**: Support for Markdown descriptions, labels, and due dates.
+- **Dependencies**: Link tasks to visualize blockers and critical paths.
+
+### 👥 Team Collaboration
+- **Role-Based Access**: Granular permissions via Admin and Member roles.
+- **Task Assignment**: Clear ownership with primary assignees for every task.
+- **Activity Streams**: Real-time audit logs of changes within every project and task.
+
+### 📊 Insights & Organization
+- **Unified Dashboard**: Quick overview of project stats, upcoming deadlines, and recent activity.
+- **Timeline View**: Track project progress over time.
+- **Global Search**: Find tasks and projects instantly.
+- **Dark Mode**: Fully immersive dark and light themes.
+
+---
+
+## 🚀 Tech Stack
+
+Flowt is built on a cutting-edge stack for maximum reliability and speed:
+
+- **Frontend**: [Next.js 15/16](https://nextjs.org/) (App Router), [React 19](https://reactjs.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)
+- **Components**: [Radix UI](https://www.radix-ui.com/), [Lucide Icons](https://lucide.dev/)
+- **Database**: [Prisma](https://www.prisma.io/) (SQLite by default, compatible with PostgreSQL/MySQL)
+- **State Management**: Server Actions & Next.js Cache
+
+---
+
+## 🛠️ Installation
+
+### Prerequisites
+- [Node.js 18.x](https://nodejs.org/) or higher
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/luketaylor45/flowt.git
+cd flowt
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configure Environment Variables
+Copy the example environment file and update your `SESSION_SECRET`:
+```bash
+cp .env.example .env
+```
+*Note: Ensure `SESSION_SECRET` is a long, random string.*
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Database Setup
+Initialize the database and generate the Prisma client:
+```bash
+npx prisma db push
+```
 
-## Learn More
+### 5. Build for Production
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏁 Getting Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Initial Setup
+Once the application is running, navigate to `/setup` in your browser to:
+1. Create the initial **Admin Account**.
+2. Configure basic system settings.
+3. Initialize default project templates.
 
-## Deploy on Vercel
+### Running the App
+**Production Mode:**
+```bash
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Development Mode:**
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The app will be available at `http://localhost:3000`.
+
+---
+
+## 📖 Usage Instructions
+
+### Creating your first project
+1. Log in and head to the **Dashboard**.
+2. Click on **"View All Projects"** or the **"+"** icon in the sidebar.
+3. Enter a title and select a template (or start from scratch).
+
+### Managing Tasks
+- **Drag & Drop**: Move tasks between columns (To Do, In Progress, Done) to update status.
+- **Deep Dive**: Click a task to open the **Task Detail Modal**. Here you can add subtasks, set due dates, and link dependencies.
+- **Labeling**: Use the **"Manage Labels"** option in the sidebar to create color-coded tags for your board.
+
+### Admin Settings
+Admins can access the **Settings** gear in the sidebar to:
+- Manage Users and Groups.
+- Adjust global system configurations.
+- View system-wide activity logs.
+
+---
+
+## 🐳 Docker Deployment
+
+Flowt is ready for containerized deployment:
+
+```bash
+docker build -t flowt .
+docker run -p 3000:3000 --env-file .env flowt
+```
+
+---
+
+## 📄 License
+Flowt is released under the [MIT License](LICENSE).
