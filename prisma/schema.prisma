@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Board {
+  id        String   @id @default(cuid())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  columns   Column[]
+  labels    Label[]
+  
+  ownerId   String?
+  owner     User?    @relation("BoardOwner", fields: [ownerId], references: [id])
+  members   User[]   @relation("BoardMembers")
+}
+
+model Column {
+  id        String   @id @default(cuid())
+  title     String
+  order     Int
+  boardId   String
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  
+  tasks     Task[]
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  description String?   // Markdown supported
+  order       Int
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+  columnId    String
+  column      Column    @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  
+  assigneeId  String?
+  assignee    User?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  
+  subtasks    Subtask[]
+  labels      Label[]
+  activity    ActivityLog[]
+  
+  blocking    Task[]  @relation("TaskDependency")
+  blockedBy   Task[]  @relation("TaskDependency")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Subtask {
+  id          String   @id @default(cuid())
+  title       String
+  isCompleted Boolean  @default(false)
+  taskId      String
+  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model Label {
+  id      String @id @default(cuid())
+  name    String
+  color   String // Hex or tailwind class name
+  boardId String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  action    String
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  timestamp DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  isAdmin   Boolean  @default(false)
+  groupId   String?
+  group     Group?   @relation(fields: [groupId], references: [id])
+  activity  ActivityLog[]
+  createdAt DateTime @default(now())
+
+  ownedBoards   Board[]  @relation("BoardOwner")
+  memberBoards  Board[]  @relation("BoardMembers")
+  assignedTasks Task[]   @relation("TaskAssignee")
+}
+
+model Group {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  permissions String   // stored as JSON string or comma separated
+  users       User[]
+}
+
+model SystemSettings {
+  key   String @id
+  value String
+}
