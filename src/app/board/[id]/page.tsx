@@ -13,8 +13,8 @@ export default async function BoardPage({ params }: { params: Promise<{ id: stri
     const [board, allBoards, logoText, adminRoleName, canCreateBoard] = await Promise.all([
         getBoardData(id),
         getBoards(session.user.id, session.user.isAdmin),
-        getSystemSetting("logoText"),
-        getSystemSetting("adminRoleName"),
+        getSystemSetting("logo_text"),
+        getSystemSetting("admin_role_name"),
         hasPermission(session.user.id, "create_board")
     ])
 
@@ -23,7 +23,7 @@ export default async function BoardPage({ params }: { params: Promise<{ id: stri
     }
 
     return (
-        <div className="flex min-h-screen bg-black text-foreground font-sans selection:bg-blue-500/30">
+        <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-blue-500/30">
             <Sidebar logoText={logoText} adminRoleName={adminRoleName || "Administrator"} boards={allBoards} user={session.user} canCreateBoard={canCreateBoard} />
             <main className="flex-1 lg:ml-72 h-screen overflow-hidden">
                 <BoardView initialBoard={board} logoText={logoText || "Flowt"} />

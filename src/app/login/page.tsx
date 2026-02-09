@@ -8,7 +8,7 @@ import { Logo } from "@/components/Logo"
 import LoginForm from "@/components/LoginForm"
 
 export default async function LoginPage() {
-    const logoText = await getSystemSetting("logoText") || "Flowt"
+    const logoText = await getSystemSetting("logo_text") || "Flowt"
 
     return (
         <div className="h-screen w-full flex items-center justify-center bg-background">

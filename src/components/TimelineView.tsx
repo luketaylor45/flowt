@@ -72,7 +72,7 @@ export function TimelineView({ board, onTaskClick }: TimelineViewProps) {
     }, [allTasks])
 
     return (
-        <div className="flex-1 h-full overflow-y-auto custom-scrollbar p-6 lg:p-10 pb-20 bg-background text-foreground">
+        <div className="flex-1 h-full overflow-y-auto custom-scrollbar p-6 lg:p-10 pb-20 bg-transparent text-foreground">
             <div className="max-w-4xl mx-auto relative pl-8 border-l border-border space-y-12">
                 {groupedTasks.map((group, groupIndex) => (
                     <div key={group.title} className="relative">
@@ -117,7 +117,6 @@ function TimelineTask({ task, onClick }: { task: any, onClick: () => void }) {
                 ${task.isCompleted ? "opacity-60 grayscale" : ""}
             `}
         >
-            <div className={`active:scale-95 transition-transform absolute inset-0 z-0`}></div>
 
             <div className="flex-1 relative z-10 min-w-0">
                 <div className="flex items-center gap-3 mb-1.5">

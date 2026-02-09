@@ -1,19 +1,24 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getSystemSetting } from "@/app/actions";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Flowt",
-  description: "Modern Project Management",
-};
-
-import { Toaster } from "sonner";
+export async function generateMetadata() {
+  const branding = await getSystemSetting("logo_text") || "Flowt";
+  return {
+    title: {
+      default: branding,
+      template: `%s | ${branding}`,
+    },
+    description: "Modern Project Management",
+  };
+}
 
 export default function RootLayout({
   children,

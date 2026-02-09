@@ -22,7 +22,7 @@ type SidebarProps = {
     canCreateBoard?: boolean
 }
 
-export function Sidebar({ logoText, adminRoleName = "Admin", boards, user, canCreateBoard = false }: SidebarProps) {
+export function Sidebar({ logoText, adminRoleName = "Administrator", boards, user, canCreateBoard = false }: SidebarProps) {
     const pathname = usePathname()
     const [isOpen, setIsOpen] = useState(false)
 

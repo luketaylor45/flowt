@@ -19,19 +19,18 @@ export default async function AdminPage() {
     const groups = await prisma.group.findMany()
     const users = await prisma.user.findMany({ include: { group: true } })
     const allBoards = await getBoards(session.user.id, session.user.isAdmin)
-    const logoText = await getSystemSetting("logoText")
-    const adminRoleName = await getSystemSetting("adminRoleName") || "Administrator"
+    const logoText = await getSystemSetting("logo_text")
+    const adminRoleName = await getSystemSetting("admin_role_name") || "Administrator"
 
     return (
         <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-blue-500/30">
             <Sidebar logoText={logoText} boards={allBoards} user={session.user} canCreateBoard={true} />
 
             <main className="flex-1 lg:ml-72 p-6 lg:p-10 space-y-12 bg-background min-h-screen">
-                <header className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-3xl font-bold text-foreground tracking-tight">System Settings</h1>
-                        <p className="text-muted-foreground font-medium mt-1">Manage global configuration, users, and access control.</p>
-                    </div>
+                <header className="flex flex-col">
+                    <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest mb-1">{logoText || "Flowt"}</span>
+                    <h1 className="text-3xl font-bold text-foreground tracking-tight">System Settings</h1>
+                    <p className="text-muted-foreground font-medium mt-1">Manage global configuration, users, and access control.</p>
                 </header>
 
                 <div className="grid grid-cols-12 gap-10">

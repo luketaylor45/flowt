@@ -205,14 +205,14 @@ export function SettingsForm({ initialLogoText, initialAdminRoleName = "Administ
     return (
         <div className="space-y-8">
             <form action={async (formData) => {
-                const text = formData.get("logoText") as string
-                if (text) await updateSystemSetting("logoText", text)
+                const text = formData.get("logo_text") as string
+                if (text) await updateSystemSetting("logo_text", text)
             }} className="space-y-4">
                 <div className="space-y-2">
                     <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Instance Branding</Label>
                     <div className="flex gap-3">
                         <Input
-                            name="logoText"
+                            name="logo_text"
                             defaultValue={initialLogoText}
                             placeholder="Flowt"
                             className="bg-background border-border h-10"
@@ -224,14 +224,14 @@ export function SettingsForm({ initialLogoText, initialAdminRoleName = "Administ
             </form>
 
             <form action={async (formData) => {
-                const name = formData.get("adminRoleName") as string
-                if (name) await updateSystemSetting("adminRoleName", name)
+                const name = formData.get("admin_role_name") as string
+                if (name) await updateSystemSetting("admin_role_name", name)
             }} className="space-y-4">
                 <div className="space-y-2">
                     <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Admin Role Label</Label>
                     <div className="flex gap-3">
                         <Input
-                            name="adminRoleName"
+                            name="admin_role_name"
                             defaultValue={initialAdminRoleName}
                             placeholder="Administrator"
                             className="bg-background border-border h-10"

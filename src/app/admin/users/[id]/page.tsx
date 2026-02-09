@@ -34,8 +34,8 @@ export default async function UserDetailsPage({ params }: { params: Promise<{ id
     })
 
     const dashboardBoards = await getBoards(session.user.id, session.user.isAdmin)
-    const logoText = await getSystemSetting("logoText")
-    const adminRoleName = await getSystemSetting("adminRoleName") || "Administrator"
+    const logoText = await getSystemSetting("logo_text")
+    const adminRoleName = await getSystemSetting("admin_role_name") || "Administrator"
 
     return (
         <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-blue-500/30">

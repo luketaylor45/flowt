@@ -31,7 +31,8 @@ export default async function Dashboard() {
       <main className="flex-1 lg:ml-72 p-6 lg:p-10 space-y-8 bg-background min-h-screen">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest mb-1">{logoText || "Flowt"}</span>
             <h1 className="text-3xl font-black tracking-tight text-foreground">Dashboard</h1>
             <p className="text-muted-foreground mt-2 font-medium">Welcome back, {session.user.username}</p>
           </div>

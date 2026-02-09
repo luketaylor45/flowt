@@ -13,8 +13,8 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     const { id } = await params
     const [userProfile, logoText, adminRoleName, allBoards, canCreateBoard] = await Promise.all([
         getUserProfile(id),
-        getSystemSetting("logoText"),
-        getSystemSetting("adminRoleName"),
+        getSystemSetting("logo_text"),
+        getSystemSetting("admin_role_name"),
         getBoards(session.user.id, session.user.isAdmin),
         hasPermission(session.user.id, "create_board")
     ])
@@ -77,7 +77,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
                             <CardContent>
                                 <div className="text-3xl font-bold text-foreground flex items-center gap-2">
                                     <UserIcon className="w-6 h-6 text-purple-500" />
-                                    {userProfile.isAdmin ? "Admin" : "User"}
+                                    {userProfile.isAdmin ? (adminRoleName || "Administrator") : "Member"}
                                 </div>
                             </CardContent>
                         </Card>

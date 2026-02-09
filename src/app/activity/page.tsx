@@ -12,8 +12,8 @@ export default async function ActivityPage() {
     const [allBoards, activity, logoText, adminRoleName, canCreateBoard] = await Promise.all([
         getBoards(session.user.id, session.user.isAdmin),
         getAllActivity(),
-        getSystemSetting("logoText"),
-        getSystemSetting("adminRoleName") || "Administrator",
+        getSystemSetting("logo_text"),
+        getSystemSetting("admin_role_name") || "Administrator",
         hasPermission(session.user.id, "create_board")
     ])
 
@@ -22,7 +22,8 @@ export default async function ActivityPage() {
             <Sidebar logoText={logoText} adminRoleName={adminRoleName} boards={allBoards} user={session.user} canCreateBoard={canCreateBoard} />
 
             <main className="flex-1 lg:ml-72 p-6 lg:p-10 space-y-12 bg-background min-h-screen">
-                <header>
+                <header className="flex flex-col">
+                    <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest mb-1">{logoText || "Flowt"}</span>
                     <h1 className="text-3xl font-bold text-foreground tracking-tight">System Activity</h1>
                     <p className="text-muted-foreground font-medium mt-1">A chronologically ordered log of all system changes.</p>
                 </header>

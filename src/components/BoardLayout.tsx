@@ -35,7 +35,7 @@ export function BoardLayout({ children, title, searchQuery, onSearchChange, logo
                 <div className="flex items-center gap-4 lg:gap-8 w-full sm:w-auto">
                     <div className="flex flex-col">
                         <span className="text-lg font-bold text-foreground leading-none tracking-tight truncate max-w-[150px] sm:max-w-none">{title}</span>
-                        <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest mt-0.5">Active Project</span>
+                        <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest mt-0.5">{logoText || "Flowt"} • Active Project</span>
                     </div>
 
                     <div className="h-4 w-px bg-border hidden sm:block" />
