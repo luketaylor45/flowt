@@ -18,7 +18,7 @@ export async function initialSetup(formData: FormData) {
     if (!username || !password) throw new Error("Missing fields")
 
     const userCount = await prisma.user.count()
-    if (userCount > 0) throw new Error("System already setup")
+    if (userCount > 0) redirect("/login")
 
     const hashedPassword = await bcrypt.hash(password, 10)
 

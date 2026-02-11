@@ -13,6 +13,7 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import { CreateBoardModal } from "@/components/CreateBoardModal"
 
 type SidebarProps = {
     logoText?: string
@@ -25,6 +26,7 @@ type SidebarProps = {
 export function Sidebar({ logoText, adminRoleName = "Administrator", boards, user, canCreateBoard = false }: SidebarProps) {
     const pathname = usePathname()
     const [isOpen, setIsOpen] = useState(false)
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
     const NavItem = ({ href, icon: Icon, label }: any) => {
         const isActive = pathname === href
@@ -73,12 +75,18 @@ export function Sidebar({ logoText, adminRoleName = "Administrator", boards, use
                     {user.isAdmin && <NavItem href="/admin" icon={Shield} label="Settings" />}
 
                     <div className="px-4 space-y-1 mt-8">
-                        <div className="flex items-center justify-between px-4 mb-2 group cursor-pointer">
-                            <div className="text-xs font-bold text-sidebar-foreground/40 uppercase tracking-widest">Projects</div>
+                        <div className="flex items-center justify-between px-4 mb-2 group">
+                            <Link href="/projects" onClick={() => setIsOpen(false)} className="text-xs font-bold text-sidebar-foreground/40 uppercase tracking-widest hover:text-sidebar-foreground transition-colors cursor-pointer">Projects</Link>
                             {canCreateBoard && (
-                                <Link href="/projects" onClick={() => setIsOpen(false)}>
-                                    <Plus className="w-3 h-3 text-sidebar-foreground/40 group-hover:text-blue-400 transition-colors" />
-                                </Link>
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        setIsCreateModalOpen(true)
+                                    }}
+                                    className="p-1 hover:bg-sidebar-accent rounded-md transition-colors group/plus"
+                                >
+                                    <Plus className="w-3 h-3 text-sidebar-foreground/40 group-hover/plus:text-blue-400 transition-colors" />
+                                </button>
                             )}
                         </div>
                         {boards.slice(0, 5).map((board) => (
@@ -127,6 +135,11 @@ export function Sidebar({ logoText, adminRoleName = "Administrator", boards, use
                     </div>
                 </div>
             </aside>
+
+            <CreateBoardModal
+                isOpen={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+            />
         </>
     )
 }
